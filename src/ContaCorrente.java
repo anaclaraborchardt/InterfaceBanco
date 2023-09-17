@@ -15,15 +15,26 @@ public class ContaCorrente extends ContaBancaria{
 
     @Override
     public void depositar(double valor) {
-
+        this.setSaldo(this.getSaldo() + valor);
     }
 
     @Override
-    public void mostrarDados() {
-
+    public String mostrarDados() {
+        return "Conta corrente" +
+                "saldo = " + this.getSaldo() +
+                "número da conta" + this.getNumeroConta() +
+                "taxa de Operação" + this.getTaxaOperacao();
     }
 
     public void implementaTaxaOperacao(){
         this.setSaldo(this.getSaldo() - taxaOperacao*this.getSaldo());
+    }
+
+    public double getTaxaOperacao() {
+        return taxaOperacao;
+    }
+
+    public void setTaxaOperacao(double taxaOperacao) {
+        this.taxaOperacao = taxaOperacao;
     }
 }
