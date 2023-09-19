@@ -39,24 +39,34 @@ public class Main {
                 2- Corrente""");
         int opcao = sc.nextInt();
 
-        System.out.println("Número da conta:");
-        int numero = sc.nextInt();
-        System.out.println("Valor Inicial");
-        double saldo = sc.nextInt();
+        if(opcao ==1 || opcao == 2) {
+            System.out.println("Número da conta:");
+            int numero = sc.nextInt();
+            System.out.println("Valor Inicial");
+            double saldo = sc.nextInt();
 
-        switch(opcao){
-            case 1:
-                System.out.println("Limite");
-                double limite = sc.nextDouble();
-                ContaPoupanca contaPoupanca = new ContaPoupanca(numero, saldo, limite);
-                banco.inserir(contaPoupanca);
-                break;
-            case 2:
-                System.out.println("Taxa de operação");
-                double taxaOperacao = sc.nextDouble();
-                ContaCorrente contaCorrente = new ContaCorrente(numero, saldo, taxaOperacao);
-                banco.inserir(contaCorrente);
-                break;
+            switch (opcao) {
+                case 1:
+                    System.out.println("Limite");
+                    double limite = sc.nextDouble();
+                    if(limite > 0) {
+                        banco.inserir(new ContaPoupanca(numero, saldo, limite));
+                    }else{
+                        System.out.println("Limite deve ser maior que 0");
+                    }
+                    break;
+                case 2:
+                    System.out.println("Taxa de operação");
+                    double taxaOperacao = sc.nextDouble();
+                    if(taxaOperacao > 0) {
+                        banco.inserir(new ContaPoupanca(numero, saldo, taxaOperacao));
+                    }else{
+                        System.out.println("Taxa de Operação deve ser maior que 0");
+                    }
+                    break;
+            }
+        }else{
+            System.out.println("Índice inválido");
         }
         System.out.println(banco.getListaContas());
     }
