@@ -21,9 +21,9 @@ public class ContaCorrente extends ContaBancaria{
     @Override
     public String mostrarDados() {
         return "Conta corrente" +
-                "saldo = " + this.getSaldo() +
-                "número da conta" + this.getNumeroConta() +
-                "taxa de Operação" + this.getTaxaOperacao();
+                "\nSaldo: " + this.getSaldo() +
+                "\nNúmero da conta: " + this.getNumeroConta() +
+                "\nTaxa de Operação: " + this.getTaxaOperacao();
     }
 
     public void implementaTaxaOperacao(){
@@ -32,9 +32,5 @@ public class ContaCorrente extends ContaBancaria{
 
     public double getTaxaOperacao() {
         return taxaOperacao;
-    }
-
-    public void setTaxaOperacao(double taxaOperacao) {
-        this.taxaOperacao = taxaOperacao;
     }
 }

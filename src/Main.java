@@ -11,23 +11,25 @@ public class Main {
     }
 
     private static void menuInicial(){
-        System.out.println("""
-                Digite a opção desejada:
-                1- Criar Conta 
-                2- Selecionar Conta
-                3- Remover Conta
-                4- Gerar Relatório
-                5- Finalizar""");
-        int opcao = sc.nextInt();
+        int opcao;
+        do {
+            System.out.println("""
+                    Digite a opção desejada:
+                    1- Criar Conta 
+                    2- Selecionar Conta
+                    3- Remover Conta
+                    4- Gerar Relatório
+                    5- Finalizar""");
+            opcao = sc.nextInt();
 
-        switch(opcao){
-            case 1-> criarConta();
-            case 2-> selecionarConta();
-            case 3-> removerConta();
-            case 4-> gerarRelatorio();
-            case 5-> finalizar();
-
-        }
+            switch (opcao) {
+                case 1 -> criarConta();
+                case 2 -> selecionarConta();
+                case 3 -> removerConta();
+                case 4 -> System.out.println(banco.mostrarDados());
+                case 5 -> System.exit(0);
+            }
+        }while(opcao!=5);
     }
 
     private static void criarConta() {
@@ -39,18 +41,18 @@ public class Main {
 
         System.out.println("Número da conta:");
         int numero = sc.nextInt();
-        System.out.println("valor Inicial");
+        System.out.println("Valor Inicial");
         double saldo = sc.nextInt();
 
         switch(opcao){
             case 1:
-                System.out.println("limite");
+                System.out.println("Limite");
                 double limite = sc.nextDouble();
                 ContaPoupanca contaPoupanca = new ContaPoupanca(numero, saldo, limite);
                 banco.inserir(contaPoupanca);
                 break;
             case 2:
-                System.out.println("taxa de operação");
+                System.out.println("Taxa de operação");
                 double taxaOperacao = sc.nextDouble();
                 ContaCorrente contaCorrente = new ContaCorrente(numero, saldo, taxaOperacao);
                 banco.inserir(contaCorrente);
@@ -60,24 +62,29 @@ public class Main {
     }
 
     private static void selecionarConta(){
+        int opcao;
         System.out.println("Qual o numero da conta?");
         int numero = sc.nextInt();
         if(banco.procurarConta(numero) !=null){
             contaLogada = banco.procurarConta(numero);
-            System.out.println("""
-                Digite a opção desejada:
-                1- Depositar 
-                2- Sacar
-                3- Transferir
-                4- Gerar Relatório
-                5- Voltar ao menu anterior""");
-            int opcao = sc.nextInt();
+            do {
+                System.out.println("""
+                        Digite a opção desejada:
+                        1- Depositar 
+                        2- Sacar
+                        3- Transferir
+                        4- Gerar Relatório
+                        5- Voltar ao menu anterior""");
+                opcao = sc.nextInt();
 
-            switch(opcao){
-                case 1-> depositar();
-                case 2-> sacar();
-                case 3-> transferir();
-            }
+                switch (opcao) {
+                    case 1 -> depositar();
+                    case 2 -> sacar();
+                    case 3 -> transferir();
+                    case 4 -> gerarRelatorio();
+                    case 5 -> menuInicial();
+                }
+            }while(opcao !=5);
         }else{
             System.out.println("Conta não encontrada");
         }
@@ -90,18 +97,40 @@ public class Main {
     }
 
     private static void gerarRelatorio() {
-    }
-
-    private static void finalizar() {
+        Relatorio relatorio = new Relatorio();
+        System.out.println(relatorio.gerarRelatorio(contaLogada));
     }
 
     private static void depositar() {
+        System.out.println("Digite o valor que deseja depositar");
+        double valor = sc.nextDouble();
+        contaLogada.depositar(valor);
+        System.out.println(contaLogada.getSaldo());
     }
 
     private static void sacar() {
+        System.out.println("Digite o valor que deseja sacar");
+        double valor = sc.nextDouble();
+        contaLogada.sacar(valor);
+        System.out.println(contaLogada.getSaldo());
     }
 
     private static void transferir() {
+        int numero;
+        do {
+            System.out.println("Digite o número da conta que deseja transferir");
+            numero = sc.nextInt();
+        }while(banco.procurarConta(numero) == null);
+
+        System.out.println("Conta Encontrada");
+        System.out.println("Digite o valor que deseja transferir");
+        double valor = sc.nextInt();
+        if(contaLogada.getSaldo() > 0) {
+            contaLogada.transferir(valor, numero);
+            System.out.println("Novo saldo" + contaLogada.getSaldo());
+        }else{
+            System.out.println("Saldo insuficiente");
+        }
     }
 
 }

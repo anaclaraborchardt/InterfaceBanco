@@ -1,7 +1,6 @@
 public class Relatorio {
 
-    public static void gerarRelatorio(IImprimivel imprimivel){
-        imprimivel.mostrarDados();
-
+    public String gerarRelatorio(IImprimivel imprimivel){
+        return imprimivel.mostrarDados();
     }
 }

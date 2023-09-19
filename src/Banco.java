@@ -7,6 +7,8 @@ public class Banco implements IImprimivel{
     public Banco() {
         ContaPoupanca contaPoupanca = new ContaPoupanca(2, 00.00, 100.00);
         listaContas.add(contaPoupanca);
+        ContaPoupanca contaPoupanca2 = new ContaPoupanca(3, 50.00, 100.00);
+        listaContas.add(contaPoupanca2);
     }
 
     public String remover(int numero){
@@ -34,7 +36,11 @@ public class Banco implements IImprimivel{
 
     @Override
     public String mostrarDados() {
-        return null;
+        String dados = "";
+        for (ContaBancaria conta : listaContas){
+                dados += conta.mostrarDados() + "\n";
+        }
+        return dados;
     }
 
     public ArrayList<ContaBancaria> getListaContas() {
@@ -51,4 +57,6 @@ public class Banco implements IImprimivel{
                 "listaContas=" + listaContas +
                 '}';
     }
+
+
 }

@@ -12,16 +12,19 @@ public abstract class ContaBancaria implements IImprimivel {
 
     public abstract void depositar(double valor);
 
-    public void transferir(double valor, ContaBancaria conta){
-
+    public String transferir(double valor, int numeroConta){
+            this.setSaldo(this.getSaldo() - valor);
+                if(numeroConta == this.getNumeroConta()){
+                    return "Essa conta já é sua ";
+                }else {
+            ContaBancaria contaRecebedora = new Banco().procurarConta(numeroConta);
+            contaRecebedora.setSaldo(contaRecebedora.getSaldo() + valor);
+            return "Transferência bem sucedida";
+        }
     }
 
     public int getNumeroConta() {
         return numeroConta;
-    }
-
-    public void setNumeroConta(int numeroConta) {
-        this.numeroConta = numeroConta;
     }
 
     public double getSaldo() {
@@ -31,4 +34,5 @@ public abstract class ContaBancaria implements IImprimivel {
     public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
+
 }

@@ -5,6 +5,7 @@ public class ContaPoupanca extends ContaBancaria {
     public ContaPoupanca(int numeroConta, double saldo, double limite) {
 
         super(numeroConta, saldo);
+        this.limite = limite;
     }
 
     @Override
@@ -25,18 +26,13 @@ public class ContaPoupanca extends ContaBancaria {
 
     @Override
     public String mostrarDados() {
-        return "Conta corrente" +
-                "saldo = " + this.getSaldo() +
-                "número da conta" + this.getNumeroConta() +
-                "Limite de crédito" + this.getLimite();
-
+        return "Conta Poupança" +
+                "\nSaldo:  " + this.getSaldo() +
+                "\nNúmero da conta: " + this.getNumeroConta() +
+                "\nLimite: " + this.getLimite();
     }
 
     public double getLimite() {
         return limite;
-    }
-
-    public void setLimite(double limite) {
-        this.limite = limite;
     }
 }
